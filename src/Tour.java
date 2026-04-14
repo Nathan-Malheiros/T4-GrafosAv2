@@ -41,8 +41,7 @@ public class Tour {
     public int size() {
         if (start.p == null) {
             return 0;
-        }
-        else {
+        } else {
             int counter = 0;
             Node current = start;
             do {
@@ -57,8 +56,7 @@ public class Tour {
     public double length() {
         if (start.p == null) {
             return 0.0;
-        }
-        else {
+        } else {
             double distance = 0.0;
             Node current = start;
             do {
@@ -75,8 +73,7 @@ public class Tour {
     public String toString() {
         if (start.p == null) {
             return "";
-        }
-        else {
+        } else {
             Node current = start;
             StringBuilder str = new StringBuilder();
             do {
@@ -100,16 +97,68 @@ public class Tour {
 
     // inserts p using the nearest neighbor heuristic
     public void insertNearest(Point p) {
-        throw new UnsupportedOperationException(
-                "TODO: implementar insertNearest(Point p) usando a heuristica nearest insertion"
-        );
+        if (start.p == null) {
+            start.p = p;
+            start.next = start;
+            return;
+        }
+
+        Node current = start;
+        Node closest = start;
+        double minDist = current.p.distanceTo(p);
+
+        do {
+            double dist = current.p.distanceTo(p);
+
+            if (dist < minDist) {
+                minDist = dist;
+                closest = current;
+            }
+
+            current = current.next;
+        } while (current != start);
+
+        // inserir
+        Node newNode = new Node();
+        newNode.p = p;
+
+        newNode.next = closest.next;
+        closest.next = newNode;
     }
 
     // inserts p using the smallest increase heuristic
     public void insertSmallest(Point p) {
-        throw new UnsupportedOperationException(
-                "TODO: implementar insertSmallest(Point p) usando a heuristica smallest insertion"
-        );
+        if (start.p == null) {
+            start.p = p;
+            start.next = start;
+            return;
+        }
+
+        Node current = start;
+        Node best = start;
+        double minIncrease = Double.MAX_VALUE;
+
+        do {
+            Node next = current.next;
+
+            double increase = current.p.distanceTo(p) +
+                    p.distanceTo(next.p) -
+                    current.p.distanceTo(next.p);
+
+            if (increase < minIncrease) {
+                minIncrease = increase;
+                best = current;
+            }
+
+            current = current.next;
+        } while (current != start);
+
+        // inserir
+        Node newNode = new Node();
+        newNode.p = p;
+
+        newNode.next = best.next;
+        best.next = newNode;
     }
 
     // tests this class by calling all constructors and instance methods
@@ -141,7 +190,6 @@ public class Tour {
         squareTour.insertNearest(e);
         squareTour.insertSmallest(e);
         squareTour.draw();
-
 
     }
 }

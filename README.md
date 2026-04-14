@@ -1,13 +1,33 @@
-## Getting Started
+# TSP Heurísticas de Inserção
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Implementação das heurísticas Nearest Insertion e Smallest Insertion para o Problema do Caixeiro Viajante (TSP) em Java.
 
-## Folder Structure
+## Como executar
 
-The workspace contains two folders by default, where:
+1. Compile os arquivos:
+   ```
+   cd src
+   javac *.java
+   ```
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+2. Execute com um arquivo de entrada:
+   ```
+   java Main ../dados/usa13509.txt
+   ```
+
+## Resultados para usa13509.txt
+
+- Nearest insertion: comprimento ≈ 77449.98
+- Smallest insertion: comprimento ≈ 45074.78
+
+## Descrição das Heurísticas
+
+- **Nearest Insertion**: Insere o novo ponto próximo ao ponto mais próximo no tour atual.
+- **Smallest Insertion**: Insere o novo ponto na posição que causa o menor aumento no comprimento total.
+
+## Vídeo Explicativo
+
+[Link do vídeo](https://example.com/video)  // Substitua pelo link real
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
